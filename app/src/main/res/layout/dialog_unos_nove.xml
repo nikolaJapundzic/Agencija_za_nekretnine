@@ -31,8 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:hint="@string/et_naziv"
-        android:inputType="textPassword" />
+        android:hint="@string/et_naziv" />
 
     <EditText
         android:id="@+id/et_kvadratura"
@@ -49,8 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:hint="@string/broj_soba"
-        android:inputType="textPassword" />
+        android:hint="@string/broj_soba" />
 
     <EditText
         android:id="@+id/et_broj_telefona"
@@ -58,8 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:hint="@string/broj_telefona"
-        android:inputType="textPassword" />
+        android:hint="@string/broj_telefona" />
 
     <EditText
         android:id="@+id/et_adresa"
@@ -67,16 +64,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:hint="@string/adresa"
-        android:inputType="textPassword" />
+        android:hint="@string/adresa" />
     <EditText
         android:id="@+id/et_cena"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
-        android:hint="@string/cena"
-        android:inputType="textPassword" />
+        android:hint="@string/cena" />
 
 
     <Button

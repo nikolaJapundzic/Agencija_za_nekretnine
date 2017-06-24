@@ -7,16 +7,39 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.androiddevelopment.agencija_za_nekretnine.model.Nekretnina;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+
+import java.sql.SQLException;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    DatabaseHelper helper;
+    Nekretnina nekretnina;
+
+    EditText et_naziv;
+    EditText et_kvadratura;
+    EditText et_broj_soba;
+    EditText et_broj_telefona;
+    EditText et_adresa;
+    EditText et_cena;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        helper = new DatabaseHelper(this);
+
+
 
         //---------------------------------------Tooblbar---------------------------------------------
 
@@ -63,13 +86,14 @@ public class MainActivity extends AppCompatActivity {
     public void alert(){
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_unos_nove, null);
-        final EditText et_naziv = (EditText) mView.findViewById(R.id.et_naziv);
-        final EditText et_kvadratura = (EditText) mView.findViewById(R.id.et_kvadratura);
-        final EditText et_broj_soba = (EditText) mView.findViewById(R.id.et_broj_soba);
-        final EditText et_broj_telefona = (EditText) mView.findViewById(R.id.et_broj_telefona);
-        final EditText et_adresa = (EditText) mView.findViewById(R.id.et_adresa);
-        final EditText et_cena = (EditText) mView.findViewById(R.id.et_cena);
         Button btn_save = (Button) mView.findViewById(R.id.btn_save);
+
+        et_naziv = (EditText) findViewById(R.id.et_naziv);
+        et_kvadratura = (EditText) findViewById(R.id.et_kvadratura);
+        et_broj_soba = (EditText) findViewById(R.id.et_broj_soba);
+        et_broj_telefona = (EditText) findViewById(R.id.et_broj_telefona);
+        et_adresa = (EditText) findViewById(R.id.et_adresa);
+        et_cena = (EditText) findViewById(R.id.et_cena);
 
 
         mBuilder.setView(mView);
@@ -78,10 +102,86 @@ public class MainActivity extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //upis();
+                //celaLista();
+                nekretnina = new Nekretnina();
 
+                nekretnina.setmNaziv("");
+                nekretnina.setmKvadratura("");
+                nekretnina.setmBrojsoba("");
+                nekretnina.setmBrojtelefona("");
+                nekretnina.setmAdresa("");
+                nekretnina.setmCena("");
+
+                try {
+                    getDatabaseHelper().getNekretninaDao().create(nekretnina);
+                    celaLista();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
+
+
+    private void upis(){
+
+        nekretnina = new Nekretnina();
+
+        nekretnina.setmNaziv(et_naziv.getText().toString());
+        nekretnina.setmKvadratura(et_kvadratura.getText().toString());
+        nekretnina.setmBrojsoba(et_broj_soba.getText().toString());
+        nekretnina.setmBrojtelefona(et_broj_telefona.getText().toString());
+        nekretnina.setmAdresa(et_adresa.getText().toString());
+        nekretnina.setmCena(et_cena.getText().toString());
+
+        try {
+            getDatabaseHelper().getNekretninaDao().create(nekretnina);
+            celaLista();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private void celaLista(){
+        List<Nekretnina> list;
+        try {
+
+            list = getDatabaseHelper().getNekretninaDao().queryForAll();
+            ListAdapter adapter = new ArrayAdapter<Nekretnina>(getApplicationContext(), R.layout.list_item, list);
+            final ListView listView = (ListView) findViewById(R.id.lv_lista);
+            listView.setAdapter(adapter);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+    public DatabaseHelper getDatabaseHelper() {
+        if (helper == null) {
+            helper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
+        }
+        return helper;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (helper != null) {
+            OpenHelperManager.releaseHelper();
+            helper = null;
+        }
+    }
+
+
+
+
 
 
 }
