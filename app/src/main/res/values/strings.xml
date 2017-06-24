@@ -13,4 +13,5 @@
     <string name="et_naziv">naziv</string>
     <string name="id">id</string>
     <string name="kvadratura">kvadratura</string>
+    <string name="settings">settings</string>
 </resources>

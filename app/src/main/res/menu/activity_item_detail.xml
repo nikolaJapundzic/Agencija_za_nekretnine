@@ -7,4 +7,9 @@
         android:title="@string/add"
         android:icon="@drawable/icaction_add"
         app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="ifRoom" />
 </menu>
