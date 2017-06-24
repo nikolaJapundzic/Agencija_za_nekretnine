@@ -4,4 +4,13 @@
     <string name="update">update</string>
     <string name="add">add</string>
     <string name="refresh">refresh</string>
+    <string name="dodaj_nekretninu">Dodaj nekretninu</string>
+    <string name="dodajte_novu_nekretninu">Dodajte novu nekretninu</string>
+    <string name="adresa">adresa</string>
+    <string name="broj_soba">broj soba</string>
+    <string name="broj_telefona">broj telefona</string>
+    <string name="cena">cena</string>
+    <string name="et_naziv">naziv</string>
+    <string name="id">id</string>
+    <string name="kvadratura">kvadratura</string>
 </resources>
